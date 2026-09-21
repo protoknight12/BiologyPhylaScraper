@@ -1,5 +1,5 @@
 # BiologyPhylaScraper
-A python scraper built to extract different organisms' phyla into .md files
+A python scraper built to extract different organisms' phyla into .md files(Recommended to use with Obsidian)
 
 ## Setup
 ```
