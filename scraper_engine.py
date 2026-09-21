@@ -1,8 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import sys
 import time
 import random
+from urllib.parse import unquote
+
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 
 class WikiTaxonomyError(Exception):
@@ -59,7 +63,7 @@ def get_full_taxonomy(organism_name):
         except Exception as e:
             raise WikiTaxonomyError(f"Connection failed: {e}")
 
-        resolved_name = response.url.rsplit('/', 1)[-1].replace('_', ' ')
+        resolved_name = unquote(response.url.rsplit('/', 1)[-1]).replace('_', ' ')
         infobox = soup.find("table", class_=lambda x: x and ('biota' in x or 'infobox' in x))
         if not infobox:
             if not is_random:
