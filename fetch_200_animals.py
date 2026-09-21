@@ -1,6 +1,4 @@
-import time
-
-from scraper_engine import get_full_taxonomy, WikiTaxonomyError
+from scraper_engine import run_batch
 from main_File import file_sink
 
 # Example bulk-fetch script: scrapes a fixed list instead of prompting interactively.
@@ -57,11 +55,4 @@ ANIMALS = [
 assert len(ANIMALS) == 200, f"expected 200 animals, got {len(ANIMALS)}"
 
 if __name__ == "__main__":
-    for i, name in enumerate(ANIMALS, 1):
-        try:
-            resolved_name, taxonomy, image_url = get_full_taxonomy(name)
-            file_sink(name, taxonomy, image_url)
-            print(f"[{i}/200] OK: {name} ({len(taxonomy)} ranks, image={bool(image_url)})")
-        except WikiTaxonomyError as e:
-            print(f"[{i}/200] FAIL: {name}: {e}")
-        time.sleep(5)
+    run_batch(ANIMALS, file_sink, cooldown=2)

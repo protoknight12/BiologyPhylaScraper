@@ -106,6 +106,18 @@ def get_full_taxonomy(organism_name):
     return resolved_name, taxonomy_results, image_url
 
 
+def run_batch(names, sink, cooldown=2):
+    total = len(names)
+    for i, name in enumerate(names, 1):
+        try:
+            resolved_name, taxonomy, image_url = get_full_taxonomy(name)
+            sink(name, taxonomy, image_url)
+            print(f"[{i}/{total}] OK: {name} ({len(taxonomy)} ranks, image={bool(image_url)})")
+        except WikiTaxonomyError as e:
+            print(f"[{i}/{total}] FAIL: {name}: {e}")
+        time.sleep(cooldown)
+
+
 def run_app(sink):
     print("--- Organism Taxonomy Scraper ---")
     print("Commands: 'q' to quit")
