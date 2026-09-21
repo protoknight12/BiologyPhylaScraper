@@ -1,6 +1,11 @@
 # BiologyPhylaScraper
 A python scraper built to extract different organisms' phyla into .md files
 
+## Setup
+```
+pip install -r requirements.txt
+```
+
 ## Files
 - `scraper_engine.py` — scrapes an organism's Wikipedia infobox for taxonomy ranks (`get_full_taxonomy`) and runs the interactive prompt loop (`run_app`)
 - `main_Terminal.py` — prints results to the terminal
